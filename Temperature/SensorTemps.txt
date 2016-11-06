@@ -1,0 +1,3 @@
+Tower 66.42
+Bottom 38.98
+Top 39.99
