@@ -1,3 +1,0 @@
-28-03166166ccff,Tower
-28-0316623fd8ff,Top
-28-0316623f14ff,Bottom

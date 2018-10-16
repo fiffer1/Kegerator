@@ -30,9 +30,9 @@ from SendMail_API import send_mail
 
 # GPIO Setup ===================================================================================================================
 GPIO.setmode(GPIO.BCM) # use real GPIO numbering
-GPIO.setup(23,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Left Tap, Beer 1
+#GPIO.setup(23,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Left Tap, Beer 1
 GPIO.setup(24,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Middle Tap, Beer 2
-GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap, Beer 3
+#GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap, Beer 3
 # Flow Meter Wiring: Red = 5-24VDC, Black = Ground, Yellow = GPIO Pin
 
 
@@ -86,8 +86,10 @@ BEER3Bg = BLACK
 
 
 # Window Surface Setup =========================================================================================================
-VIEW_WIDTH = 1024 # original number 1024
-VIEW_HEIGHT = 600 # original number 576
+#VIEW_WIDTH = 1024 # original number 1024
+#VIEW_HEIGHT = 600 # original number 576
+VIEW_WIDTH = 1440
+VIEW_HEIGHT = 900
 pygame.display.set_caption('Kegerator')
 screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT), FULLSCREEN, 32)
 
@@ -121,15 +123,15 @@ def renderThings(flowMeter2, screen, pint, mug, pilsner, weizen, tulip, snifter,
         screenfont = pygame.font.SysFont(None, 60)
         screenfont.set_underline(1)
         rendered = screenfont.render("On Tap", True, RED, BEER2Bg)
-        screen.blit(rendered, (475, 0))
+        screen.blit(rendered, (650, 0))
 
         # Beer 2 Tap
-        screen.blit(beer2glasspic, (20, 75))
+        screen.blit(beer2glasspic, (50, 135))
         
         # Beer 2 Name
         screenfont = pygame.font.SysFont(None, 100)
-        rendered = screenfont.render(beer2name, True, BLACK, BEER2Bg)
-        screen.blit(rendered, (445,125))
+        rendered = screenfont.render(beer2name, True, RED, BEER2Bg)
+        screen.blit(rendered, (475,125))
                                            
 ##        # Beer 2 Separator Line
 ##        screenfont = pygame.font.SysFont(None, 20)
@@ -139,7 +141,7 @@ def renderThings(flowMeter2, screen, pint, mug, pilsner, weizen, tulip, snifter,
         # Beer 2 Style
         screenfont = pygame.font.SysFont(None, 55)
         rendered = screenfont.render(beer2style, True, BEER2Text, BEER2Bg)
-        screen.blit(rendered, (550, 200))
+        screen.blit(rendered, (750, 250))
         
 ##        # Beer 2 Original Gravity (OG) - Don't even know what this is, so not including it
 ##        screenfont = pygame.font.SysFont(None, 45)
@@ -149,12 +151,12 @@ def renderThings(flowMeter2, screen, pint, mug, pilsner, weizen, tulip, snifter,
         # Beer 2 International Bittering Units (IBU)
         screenfont = pygame.font.SysFont(None, 55)
         rendered = screenfont.render(beer2ibu, True, BEER2Text, BEER2Bg)
-        screen.blit(rendered, (550, 240))
+        screen.blit(rendered, (750, 290))
         
         # Beer 2 Alcohol / Volume (ABV)
         screenfont = pygame.font.SysFont(None, 55)
         rendered = screenfont.render(beer2abv, True, BEER2Text, BEER2Bg)
-        screen.blit(rendered, (550, 280))
+        screen.blit(rendered, (750, 330))
 
         # Beer 2 Poured in Pints
         if flowMeter2.enabled:
@@ -168,19 +170,19 @@ def renderThings(flowMeter2, screen, pint, mug, pilsner, weizen, tulip, snifter,
                         thisPourText = ''
 
                         #Send a text if more than 0.2 pints has been poured
-                        if float(thisPour) > 0.2:
-                                send_mail('Party On!','Beer has been poured (' + thisPour + ' Pints)')
+                        #if float(thisPour) > 0.2:
+                                #send_mail('Party On!','Beer has been poured (' + thisPourText + ' Pints)')
                                 
                 screenfont = pygame.font.SysFont(None, 55)
                 rendered = screenfont.render(thisPourText, True, YELLOW, BEER2Bg)
                 textRect = rendered.get_rect()
-                screen.blit(rendered, (520, 360))
+                screen.blit(rendered, (720, 560))
 
 				#totalPour is returned as string, so convert to float and round then convert to string again
                 screenfont = pygame.font.SysFont(None, 45)
                 rendered = screenfont.render(str(round(float(totalPour),2)) + ' gallons remaining', True, ORANGE, BEER2Bg)
                 textRect = rendered.get_rect()
-                screen.blit(rendered, (520,430))
+                screen.blit(rendered, (720,630))
 
         
         # Kegerator Temps ===========================================================================================================
@@ -223,7 +225,7 @@ def renderThings(flowMeter2, screen, pint, mug, pilsner, weizen, tulip, snifter,
 
         screenfont = pygame.font.SysFont(None, 45)
         rendered = screenfont.render(TowerDisp, True, tempColor, None)
-        screen.blit(rendered, (0, 565))
+        screen.blit(rendered, (200, 765))
 
         if Top_temp != ' ':
                 if float(Top_temp) < 35:
@@ -237,7 +239,7 @@ def renderThings(flowMeter2, screen, pint, mug, pilsner, weizen, tulip, snifter,
 
         screenfont = pygame.font.SysFont(None, 45)
         rendered = screenfont.render(TopDisp, True, tempColor, None)
-        screen.blit(rendered, (530, 565))
+        screen.blit(rendered, (730, 765))
 
         if Bottom_temp != ' ':
                 if float(Bottom_temp) < 35:
@@ -251,7 +253,7 @@ def renderThings(flowMeter2, screen, pint, mug, pilsner, weizen, tulip, snifter,
 
         screenfont = pygame.font.SysFont(None, 45)
         rendered = screenfont.render(BottomDisp, True, tempColor, None)
-        screen.blit(rendered, (740, 565))
+        screen.blit(rendered, (940, 765))
      
         # Date / Time ==============================================================================================================
         # Date & Time required internet access to initially set
@@ -286,9 +288,9 @@ def doAClick3(channel):
                 flowMeter3.update(currentTime)
                 saveValues(flowMeter1, flowMeter2, flowMeter3)
 
-GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer 1, on Pin 23
+#GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer 1, on Pin 23
 GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer 2, on Pin 24
-GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer 3, on Pin 24
+#GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer 3, on Pin 24
 
 
 # Erase & Save New Data to File +===============================================================================================

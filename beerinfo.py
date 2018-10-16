@@ -34,7 +34,7 @@ goblet = pygame.image.load('/home/pi/Projects/Kegerator/images/goblet.jpg')
 nokeg = pygame.image.load('/home/pi/Projects/Kegerator/images/nokeg.jpg')
 #nokeg = pygame.transform.scale(nokeg,(100,100)) # update to correct size
 
-tap = pygame.image.load('/home/pi/Projects/Kegerator/images/tap.png')
+tap = pygame.image.load('/home/pi/Projects/Kegerator/images/tap.jpeg')
 
 
 # Text Color Based On SRM Value ================================================================================================
@@ -100,11 +100,11 @@ BEER1Text = RED # text color based on the SRM value
 		
 
 # Beer 2 (Middle Tap) Variables ========================================================================================================
-beer2name = "Stone Pataskala" # notes about length here
-beer2style = "Style:  Red IPA" # notes about length here
+beer2name = "Deschutes Fresh Squeezed" # notes about length here
+beer2style = "Style:  IPA" # notes about length here
 beer2OG = "OG: 1.050 SG" # notes about layout here
-beer2ibu = "IBU:     70" # notes about layout here
-beer2abv = "ABV:    7.8%" # notes about layout here
+beer2ibu = "IBU:     60" # notes about layout here
+beer2abv = "ABV:    6.4%" # notes about layout here
 beer2glasspic = tap # select from Beer Glass Variables
 BEER2Text = SRM43 # text color based on the SRM value
 		
